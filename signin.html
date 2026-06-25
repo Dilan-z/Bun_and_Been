@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <title>Sign In - BUN and Been</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <style>
+    .msg{padding:10px;border-radius:5px;margin:10px 0;display:none;}
+    .msg.error{color:red;background:#fdd;}
+    .msg.success{color:green;background:#dfd;}
+  </style>
+</head>
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="bg-box"><img src="images/hero-bg.jpg" alt=""></div>
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html"><span>BUN and BEEN</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false"><span class=""></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+              <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+              <li class="nav-item"><a class="nav-link" href="book.html">Book Table</a></li>
+            </ul>
+            <div class="user_option">
+              <a href="signup.html" class="order_online">Sign Up</a>
+              <a href="signin.html" class="order_online">Sign In</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <section class="book_section layout_padding">
+    <div class="container">
+      <div class="heading_container"><h2>Sign In</h2></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <div class="msg error" id="errMsg">Invalid username or password.</div>
+            <div class="msg success" id="okMsg">Login successful! Redirecting...</div>
+            <form id="signinForm">
+              <div><input type="text" id="uname" class="form-control" placeholder="Username" required /></div>
+              <div style="position:relative;">
+                <input id="signinPassword" type="password" class="form-control" placeholder="Password" required style="padding-right:40px;" />
+                <span onclick="togglePwd()" style="position:absolute;right:10px;top:10px;cursor:pointer;"><i id="eyeIcon" class="fa fa-eye-slash"></i></span>
+              </div>
+              <div class="btn_box"><button type="submit">Log In</button></div>
+            </form>
+            <p style="margin-top:15px;">Don't have an account? <a href="signup.html">Sign Up</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col"><div class="footer_contact"><h4>Contact Us</h4><div class="contact_link_box"><a href=""><i class="fa fa-map-marker"></i><span> Location</span></a><a href=""><i class="fa fa-phone"></i><span> Call 0112456789</span></a><a href=""><i class="fa fa-envelope"></i><span> BUNandBeen123@gmail.com</span></a></div></div></div>
+        <div class="col-md-4 footer-col"><div class="footer_detail"><a href="" class="footer-logo">BUN and Been</a><p>No.1 Restaurant in Sri Lanka</p><div class="footer_social"><a href=""><i class="fa fa-facebook"></i></a><a href=""><i class="fa fa-twitter"></i></a><a href=""><i class="fa fa-linkedin"></i></a><a href=""><i class="fa fa-instagram"></i></a><a href=""><i class="fa fa-pinterest"></i></a></div></div></div>
+        <div class="col-md-4 footer-col"><h4>Opening Hours</h4><p>Everyday</p><p>9.00 Am - 11.00 Pm</p></div>
+      </div>
+      <div class="footer-info"><p>NO:451/1, T.B. Jaya Road, Colombo 03, Sri Lanka.</p></div>
+    </div>
+  </footer>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+  <script>
+    function togglePwd() {
+      var p = document.getElementById('signinPassword');
+      var i = document.getElementById('eyeIcon');
+      if (p.type === 'password') { p.type = 'text'; i.className = 'fa fa-eye'; }
+      else { p.type = 'password'; i.className = 'fa fa-eye-slash'; }
+    }
+    document.getElementById('signinForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var users = JSON.parse(localStorage.getItem('bb_users') || '[]');
+      var uname = document.getElementById('uname').value;
+      var pwd = document.getElementById('signinPassword').value;
+      var found = users.find(u => u.name === uname && u.password === pwd);
+      if (found) {
+        localStorage.setItem('bb_loggedIn', uname);
+        document.getElementById('okMsg').style.display = 'block';
+        document.getElementById('errMsg').style.display = 'none';
+        setTimeout(() => window.location.href = 'menu.html', 1200);
+      } else {
+        document.getElementById('errMsg').style.display = 'block';
+        document.getElementById('okMsg').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
