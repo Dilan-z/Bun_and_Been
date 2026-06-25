@@ -1,4 +1,4 @@
-☕✨ Bun & Bean
+☕✨ **Bun & Bean**
 
 Welcome to **Bun & Bean** – where great coffee meets unforgettable moments! 🌿☕
 
